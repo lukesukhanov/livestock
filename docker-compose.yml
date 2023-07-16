@@ -40,3 +40,89 @@ services:
       SERVER_HOSTNAME: discovery-server
       SERVER_PORT: 8761
     restart: unless-stopped
+  
+  api-gateway:
+    container_name: api-gateway
+    image: lukesv/livestock-api-gateway
+    networks:
+      - internet
+      - appnet
+    ports:
+      - "8765:8765"
+    environment:
+      SERVER_HOSTNAME: api-gateway
+      SERVER_PORT: 8765
+      DISCOVERY_SERVERS: http://discovery-server:8761/eureka
+      CORS_ORIGINS: http://localhost:5500
+    restart: unless-stopped
+    depends_on:
+      - discovery-server
+  
+  authorization-server:
+    container_name: authorization-server
+    image: lukesv/livestock-authorization-server
+    networks:
+      - appnet
+    environment:
+      SERVER_HOSTNAME: authorization-server
+      SERVER_PORT: 9000
+      DISCOVERY_SERVERS: http://discovery-server:8761/eureka
+      POSTGRES_HOSTNAME: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_SCHEMA: livestock
+    restart: unless-stopped
+    depends_on:
+      - discovery-server
+      - liquibase
+  
+  cart-service:
+    container_name: cart-service
+    image: lukesv/livestock-cart-service
+    networks:
+      - appnet
+    environment:
+      SERVER_HOSTNAME: cart-service
+      SERVER_PORT: 0
+      DISCOVERY_SERVERS: http://discovery-server:8761/eureka
+      AUTHORIZATION_SERVER_HOSTNAME: authorization-server
+      AUTHORIZATION_SERVER_PORT: 9000
+      POSTGRES_HOSTNAME: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_SCHEMA: livestock
+    restart: unless-stopped
+    depends_on:
+      - discovery-server
+      - authorization-server
+      - liquibase
+      
+  product-service:
+    container_name: product-service
+    image: lukesv/livestock-product-service
+    networks:
+      - appnet
+    environment:
+      SERVER_HOSTNAME: product-service
+      SERVER_PORT: 0
+      DISCOVERY_SERVERS: http://discovery-server:8761/eureka
+      POSTGRES_HOSTNAME: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_SCHEMA: livestock
+    restart: unless-stopped
+    depends_on:
+      - discovery-server
+      - liquibase
+  web:
+    container_name: web
+    image: lukesv/livestock-web
+    networks:
+      - internet
+      - appnet
+    ports:
+      - "5500:80"
+    restart: unless-stopped
