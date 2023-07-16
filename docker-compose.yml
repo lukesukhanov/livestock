@@ -1,0 +1,30 @@
+version: "3.5"
+
+networks:
+  internet:
+    name: internet
+    driver: bridge
+  appnet:
+    name: appnet
+    driver: bridge
+
+services:
+  postgres:
+    container_name: postgres
+    image: lukesv/livestock-postgres
+    networks:
+    - appnet
+    environment:
+      POSTGRES_DATABASE: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: unless-stopped
+    
+  liquibase:
+    container_name: liquibase
+    image: lukesv/livestock-liquibase
+    networks:
+      - appnet
+    restart: on-failure
+    depends_on:
+      - postgres
