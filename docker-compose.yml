@@ -13,7 +13,7 @@ services:
     container_name: postgres
     image: lukesv/livestock-postgres
     networks:
-    - appnet
+      - appnet
     environment:
       POSTGRES_DATABASE: postgres
       POSTGRES_USER: postgres
@@ -28,3 +28,15 @@ services:
     restart: on-failure
     depends_on:
       - postgres
+      
+  discovery-server:
+    container_name: discovery-server
+    image: lukesv/livestock-discovery-server
+    networks:
+      - appnet
+    ports:
+      - "8761:8761"
+    environment:
+      SERVER_HOSTNAME: discovery-server
+      SERVER_PORT: 8761
+    restart: unless-stopped
