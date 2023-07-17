@@ -39,7 +39,7 @@ Now you can find Livestock on localhost:5500.
 ## What tools are exploited
 <ul>
   <li>HTML + CSS + (pure) JavaScript</li>
-  <li>PostgreSQL + Liquibase</li>
+  <li>PostgreSQL + Liquibase + Hibernate</li>
   <li>Spring Cloud: discovery server + API gateway + clients</li>
   <li>Spring Boot</li>
   <li>Spring Security: OAuth 2.1 + Spring Authorization Server</li>
