@@ -8,7 +8,7 @@ The project consists of the following:
   <li><a href="https://github.com/lukesukhanov/livestock-web">the frontend application</a></li>
   <li><a href="https://github.com/lukesukhanov/livestock-database">the database service</a></li>
   <li><a href="https://github.com/lukesukhanov/livestock-database-migration">the database migration service</a></li>
-  <li><a href="https://github.com/lukesukhanov/livestock-discovery-server">the discovery service</a></li>
+  <li><a href="https://github.com/lukesukhanov/livestock-discovery-server">the discovery server</a></li>
   <li><a href="https://github.com/lukesukhanov/livestock-api-gateway">the API gateway</a></li>
   <li><a href="https://github.com/lukesukhanov/livestock-authorization-server">the authorization server</a></li>
   <li><a href="https://github.com/lukesukhanov/livestock-product-service">the product service</a></li>
