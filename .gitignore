@@ -1,0 +1,9 @@
+livestock-api-gateway/
+livestock-authorization-server/
+livestock-cart-service/
+livestock-database/
+livestock-database-migration/
+livestock-discovery-server/
+livestock-product-service/
+livestock-web/
+

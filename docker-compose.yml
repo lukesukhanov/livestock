@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     restart: unless-stopped
-    
+
   liquibase:
     container_name: liquibase
     image: lukesv/livestock-liquibase
@@ -28,7 +28,7 @@ services:
     restart: on-failure
     depends_on:
       - postgres
-      
+
   discovery-server:
     container_name: discovery-server
     image: lukesv/livestock-discovery-server
@@ -98,7 +98,7 @@ services:
       - discovery-server
       - authorization-server
       - liquibase
-      
+
   product-service:
     container_name: product-service
     image: lukesv/livestock-product-service
